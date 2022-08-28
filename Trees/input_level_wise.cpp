@@ -14,6 +14,37 @@ public:
 	}
 };
 
+TreeNode<int>* takeInputLevelWise(){
+	int rootData; 
+	// cout<<"Enter rootData: ";
+	cin>>rootData;
+	TreeNode<int>* root = new TreeNode<int>(rootData);
+
+	queue<TreeNode<int>*> pendingNodes;
+
+	pendingNodes.push(root);
+
+	while(pendingNodes.size()!=0){
+		TreeNode<int>* front = pendingNodes.front();
+		pendingNodes.pop();
+
+		// cout<<"Enter number of childrens of "<<front->data<<endl;
+		int numChild;
+		
+		cin>>numChild;
+		for(int i=0;i<numChild;i++){
+			int childData;
+			// cout<<"Enter "<<i<<" child of "<<front->data<<endl;
+			cin>>childData;
+			TreeNode<int>* child = new TreeNode<int>(childData);
+			front->children.push_back(child);
+			pendingNodes.push(child);
+		}
+
+	}
+	return root;
+}
+
 TreeNode<int>* takeInput(){
 	int rootData; 
 	// cout<<"Enter rootData: ";
@@ -56,6 +87,7 @@ int main(){
 	// root->children.push_back(node2);
 
 	TreeNode<int>* root = takeInput();
+	// TreeNode<int>* root = takeInputLevelWise();
 	printTree(root);
 }
 
@@ -63,22 +95,3 @@ int main(){
 // 			1
 // 		2 			3	4
 // 	5		6		7	8
-
-
-
-// 1
-// 3
-// 2
-// 2
-// 5
-// 0
-// 6
-// 0
-// 3
-// 1
-// 7
-// 0
-// 4
-// 1
-// 8
-// 0
