@@ -93,10 +93,41 @@ int sumNodes(TreeNode<int>* root){
     return sum;
 }
 
+void printAtLevelK(TreeNode<int>* root,int k){
+    if(k==0){
+        cout<<root->data<<endl;
+        return;
+    }
+
+    for(int i=0;i<root->children.size();i++){
+        printAtLevelK(root->children[i],k-1);
+    }
+}
+
+int getLeafNodeCount(TreeNode<int>* root) {
+
+    int count = 0;
+    if(root==NULL)
+        return 0;
+
+    if(root->children.size()==0)
+        count++;
+
+    for(int i=0;i<root->children.size();i++){
+        count+=getLeafNodeCount(root->children[i]);
+    }
+
+    return count;
+}
+
 int main() {
     TreeNode<int>* root = takeInputLevelWise();
     printLevelWise(root);
 
     cout<<"numNodes: "<<numNodes(root)<<endl;
-    cout << "Sum: " << sumNodes(root);
+    cout << "Sum: " << sumNodes(root)<<endl;
+
+    printAtLevelK(root,3);
+
+    cout<<"leaf nodes: "<<getLeafNodeCount(root)<<endl;
 } 
