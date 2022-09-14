@@ -14,6 +14,7 @@ public:
 	}
 };
 
+// Input Function
 TreeNode<int>* takeInput(){
 	int rootData; 
 	// cout<<"Enter rootData: ";
