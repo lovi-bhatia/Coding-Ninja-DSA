@@ -31,13 +31,16 @@ class Pair{
     public:
     Node<int>* head;
     Node<int>* tail;
+
+    Pair(){
+        head = NULL;
+        tail = NULL;
+    }
 };
 
 Pair BST(BinaryTreeNode<int>* root){
+    Pair ans;
     if(root==NULL){
-        Pair ans;
-        ans.head = NULL;
-        ans.tail = NULL;
         return ans;
     }
 
@@ -45,36 +48,27 @@ Pair BST(BinaryTreeNode<int>* root){
     Pair leftAns = BST(root->left);
     Pair rightAns = BST(root->right);
 
-    Pair ans;
+    if(leftAns.tail!=NULL){
+        leftAns.tail->next = node;
+    }
+    node->next = rightAns.head;
 
-    if(leftAns.head==NULL && rightAns.head==NULL){
+    if(leftAns.head!=NULL){
+        ans.head = leftAns.head;
+    }else{
         ans.head = node;
+    }
+    if(rightAns.head!=NULL){
+        ans.tail = rightAns.tail;
+    }else{
         ans.tail = node;
     }
-    else if(leftAns.head==NULL && rightAns.head){
-        ans.head = node;
-        node->next = rightAns.head;
-        ans.tail = rightAns.tail;
-    }
-     else if(leftAns.head && rightAns.head==NULL)
-  		  { ans.head=leftAns.head;
-      			leftAns.tail->next=node;
-  		        ans.tail=node;
-               
-  		  }
-    else
-    {
-        ans.head=leftAns.head;
-        leftAns.tail->next=node;
-        node->next=rightAns.head;
-        ans.tail=rightAns.tail;
-    }
-       
-     return ans;
+    return ans;
 }
 
 Node<int>* constructLinkedList(BinaryTreeNode<int>* root) {
-
+    Pair list = BST(root);
+    return list.head;
 }
 
 BinaryTreeNode<int>* takeInput() {
