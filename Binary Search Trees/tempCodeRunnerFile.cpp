@@ -1,11 +1,9 @@
-      return true;
-    
-    if(root->data<min || root->data>max)
-        return false;
-    
-    return helper(root->left,min,root->data) && helper(root->right,max,root->data);
-}
+TreeNode<int>* minNode = root->right;
 
-bool isBST(BinaryTreeNode<int> *root) {
-    return helper(root,INT_MIN,INT_MAX);
-}
+                while(minNode->left!=NULL){
+                    minNode= minNode->left;
+                }
+                int rightMin = minNode->data;
+                root->data = rightMin;
+                root->right = remove(root->right,rightMin);
+                return root;
