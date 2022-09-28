@@ -28,12 +28,10 @@ int helper(BinaryTreeNode<int>* root, int sum){
         return sum;
 
     sum = helper(root->right,sum);
-
-    sum+=root->data;
+    sum+= root->data;
     root->data = sum;
 
-    sum = helper(root->left,sum);
-
+    helper(root->left,sum);
     return sum;
 }
 
